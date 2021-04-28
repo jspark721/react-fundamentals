@@ -12,7 +12,7 @@
     //     return <div className={props.className}>{props.children}</div>
     // }
     //or i can destructure and put the prop names in the function argument
-    function message({className, children}) {
+    function Message({className, children}) {
       return <div className={className}>{children}</div>
     }
     // 🐨 use that function in place of the divs below with:
@@ -26,12 +26,51 @@
     // )
 
     //extra credit 1: 
+    // const element = (
+    //   <div className="extra-credit1">
+    //     {React.createElement(message, {children: 'Hello World'})}
+    //     {React.createElement(Message, {children: 'Goodbye World'})}
+    //   </div>
+    // );
+
+    //extra credit 2: using custom component with JSX
+    // const element = (
+    //   <div className="extra-credit1">
+    //     <Message children="Hello World" />
+    //     <Message>Goodbye World</Message>
+    //   </div>
+    // );
+
+    //extra credit 3: change the message component & runtime vaidation with PropTypes
+
+    function Message2({name, greeting}) {
+      return(
+        <div className="message">
+          {greeting}, {name}
+        </div>
+      )
+    }
+
+    const PropTypes ={
+      string(props, propName, componentName) {
+        if(typeof props[propName] !== 'string') {
+          return new Error('this needs to be a string')
+        }
+      }
+    }
+
+    Message2.propTypes = {
+      greeting: PropTypes.string,
+      name: PropTypes.string
+    }
+
     const element = (
-      <div className="extra-credit1">
-        {React.createElement(message, {children: 'Hello World'})}
-        {React.createElement(message, {children: 'Goodbye World'})}
+      <div className="extra-credit2">
+        <Message2 greeting="Aloha" name="Harvey" />
+        <Message2 greeting={4} name="Julie" /> 
       </div>
     );
+    //greeting = 4 will throw an error because it's not a type of string
 
     // 💯 This is only the first step to making actual React components. The rest is in the extra credit!
     ReactDOM.render(element, document.getElementById('root'))
