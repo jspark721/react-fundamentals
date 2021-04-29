@@ -6,6 +6,8 @@
   <script src="https://unpkg.com/react@17.0.0/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@17.0.0/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone@7.12.4/babel.js"></script>
+  <!--extra credit 4-->
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
   <script type="text/babel">
     // 🐨 Make a function called `message` which returns the JSX we want to share
     // function message(props) {
@@ -51,27 +53,38 @@
       )
     }
 
-    const PropTypes ={
-      string(props, propName, componentName) {
-        if(typeof props[propName] !== 'string') {
-          return new Error('this needs to be a string')
-        }
-      }
-    }
+    // const PropTypes ={
+    //   string(props, propName, componentName) {
+    //     if(typeof props[propName] !== 'string') {
+    //       return new Error('this needs to be a string')
+    //     }
+    //   }
+    // }
 
+    //.isRequired feature is part of the prop-types package
     Message2.propTypes = {
-      greeting: PropTypes.string,
-      name: PropTypes.string
+      greeting: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired
     }
 
-    const element = (
-      <div className="extra-credit2">
-        <Message2 greeting="Aloha" name="Harvey" />
-        <Message2 greeting={4} name="Julie" /> 
-      </div>
-    );
+    // const element = (
+    //   <div className="extra-credit2">
+    //     <Message2 greeting="Aloha" name="Harvey" />
+    //     <Message2 greeting={4} name="Julie" /> 
+    //   </div>
+    // );
     //greeting = 4 will throw an error because it's not a type of string
 
+    //extra credit 4: use prop-types package
+
+    //extra credit 5: React Fragments: a special kind of component from React which allows you to position two elements side by side rather than just nested
+    //<> is a short syntax of <React.Fragment>
+    const element = (
+      <React.Fragment>
+        <Message2 greeting="Aloha" name="Harvey" />
+        <Message2 greeting={21} name="Julie" /> 
+      </React.Fragment>
+    );
     // 💯 This is only the first step to making actual React components. The rest is in the extra credit!
     ReactDOM.render(element, document.getElementById('root'))
   </script>
